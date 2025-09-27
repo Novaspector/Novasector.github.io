@@ -251,7 +251,7 @@ export default function ServicesPage() {
             <div className="text-center">
               <h3 className="text-xl font-semibold mb-2">Remote Support</h3>
               <p className="text-slate-600">Available island-wide</p>
-              <p className="text-sm text-emerald-600 font-medium">Via phone/video call</p>
+              <p className="text-sm text-emerald-600 font-medium">Via phone/video call - 876-293-9373</p>
             </div>
           </div>
         </div>
@@ -264,6 +264,7 @@ export default function ServicesPage() {
           <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
             Contact me today for a free consultation. Let's discuss how I can help solve your tech challenges.
           </p>
+          <p className="text-lg text-slate-300 mb-8">Call us at 876-293-9373</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700">
               <Link href="/contact">

@@ -411,7 +411,7 @@ export default function SignupPage() {
                     <div className="space-y-3 text-sm">
                       <div className="flex items-center space-x-2">
                         <Phone className="h-4 w-4 text-emerald-600" />
-                        <span>876-555-0123</span>
+                        <span>876-293-9373</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Mail className="h-4 w-4 text-emerald-600" />

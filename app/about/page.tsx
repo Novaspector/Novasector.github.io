@@ -175,12 +175,12 @@ export default function AboutPage() {
                     <div>
                       <h3 className="font-semibold">Bachelor of Science in Computer Science</h3>
                       <p className="text-slate-600">University of Technology, Jamaica (UTech)</p>
-                      <p className="text-sm text-slate-500">Graduated: 2023</p>
+                      <p className="text-sm text-slate-500">Graduated: 2027</p>
                     </div>
                     <div>
                       <h3 className="font-semibold">CAPE Computer Science</h3>
-                      <p className="text-slate-600">Kingston College</p>
-                      <p className="text-sm text-slate-500">Completed: 2019</p>
+                      <p className="text-slate-600">Holy Trinity High School</p>
+                      <p className="text-sm text-slate-500">Completed: 2013</p>
                     </div>
                   </div>
                 </CardContent>
@@ -197,7 +197,7 @@ export default function AboutPage() {
                   <div className="space-y-3">
                     <div>
                       <h4 className="font-semibold text-sm">Programming Languages</h4>
-                      <p className="text-sm text-slate-600">Python, JavaScript, HTML/CSS, Java</p>
+                      <p className="text-sm text-slate-600">C, Python, JavaScript, HTML/CSS, Java</p>
                     </div>
                     <div>
                       <h4 className="font-semibold text-sm">Web Development</h4>

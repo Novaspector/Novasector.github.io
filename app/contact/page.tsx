@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
+import WhatsAppButton from "@/components/whatsapp-button"
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -173,7 +174,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-lg mb-1">Phone & WhatsApp</h3>
                       <p className="text-slate-600">
-                        876-555-0123
+                        876-293-9373
                         <br />
                         <span className="text-sm text-emerald-600">WhatsApp available 8AM-8PM</span>
                       </p>
@@ -239,17 +240,16 @@ export default function ContactPage() {
                 <h3 className="text-xl font-semibold text-slate-900">Prefer to Call or Text?</h3>
                 <div className="grid gap-3">
                   <Button variant="outline" className="justify-start bg-transparent" asChild>
-                    <a href="tel:876-555-0123">
+                    <a href="tel:876-293-9373">
                       <Phone className="h-4 w-4 mr-2" />
-                      Call Now: 876-555-0123
+                      Call Now: 876-293-9373
                     </a>
                   </Button>
-                  <Button variant="outline" className="justify-start bg-transparent" asChild>
-                    <a href="https://wa.me/8765550123" target="_blank" rel="noopener noreferrer">
-                      <MessageCircle className="h-4 w-4 mr-2" />
-                      WhatsApp Me
-                    </a>
-                  </Button>
+                  <WhatsAppButton
+                    variant="outline"
+                    className="justify-start bg-transparent hover:bg-green-50"
+                    message="Hi! I found your website and I'm interested in your IT services. Can we discuss my needs?"
+                  />
                   <Button variant="outline" className="justify-start bg-transparent" asChild>
                     <a href="mailto:info@richardsit.com">
                       <Mail className="h-4 w-4 mr-2" />
