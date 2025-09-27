@@ -30,20 +30,63 @@ export default function SignupPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      const formData = new FormData(e.currentTarget)
+      const data = {
+        formType: "signup",
+        firstName: formData.get("firstName"),
+        lastName: formData.get("lastName"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        age: formData.get("age"),
+        parish: formData.get("parish"),
+        course: formData.get("course"),
+        schedule: formData.get("schedule"),
+        education: formData.get("education"),
+        experience: formData.get("experience"),
+        employment: formData.get("employment"),
+        goals: formData.get("goals"),
+        challenges: formData.get("challenges"),
+        payment: formData.get("payment"),
+        studentDiscount: formData.get("studentDiscount") === "on",
+        terms: formData.get("terms") === "on",
+        contactConsent: formData.get("contactConsent") === "on",
+        marketingConsent: formData.get("marketingConsent") === "on",
+      }
 
-    toast({
-      title: "Application submitted successfully!",
-      description: "We'll review your application and contact you within 2 business days.",
-    })
+      const response = await fetch("/api/submit-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
 
-    setIsSubmitting(false)
+      const result = await response.json()
 
-    // Reset form
-    const form = e.target as HTMLFormElement
-    form.reset()
-    setSelectedCourse("")
+      if (result.success) {
+        toast({
+          title: "Application submitted successfully!",
+          description: "We'll review your application and contact you within 2 business days.",
+        })
+
+        // Reset form
+        const form = e.target as HTMLFormElement
+        form.reset()
+        setSelectedCourse("")
+      } else {
+        throw new Error(result.error || "Failed to submit application")
+      }
+    } catch (error) {
+      console.error("Form submission error:", error)
+      toast({
+        title: "Error submitting application",
+        description: "Please try again or contact us directly via phone or WhatsApp.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const selectedCourseDetails = courses.find((course) => course.id === selectedCourse)

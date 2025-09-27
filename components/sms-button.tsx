@@ -1,9 +1,9 @@
 import type React from "react"
-import { MessageCircle } from "lucide-react"
+import { MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-interface WhatsAppButtonProps {
+interface SMSButtonProps {
   phoneNumber?: string
   message?: string
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
@@ -12,7 +12,7 @@ interface WhatsAppButtonProps {
   children?: React.ReactNode
 }
 
-export default function WhatsAppButton({
+export default function SMSButton({
   phoneNumber = "18762939373",
   message = "Hi! I found your website and I'm interested in your IT services.",
   variant = "default",
@@ -20,16 +20,16 @@ export default function WhatsAppButton({
   className,
   children,
   ...props
-}: WhatsAppButtonProps) {
-  const whatsappUrl = `https://wa.me/${phoneNumber}${message ? `?text=${encodeURIComponent(message)}` : ""}`
+}: SMSButtonProps) {
+  const smsUrl = `sms:${phoneNumber}${message ? `?body=${encodeURIComponent(message)}` : ""}`
 
   return (
     <Button variant={variant} size={size} className={cn("", className)} asChild {...props}>
-      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+      <a href={smsUrl}>
         {children || (
           <>
-            <MessageCircle className="h-4 w-4 mr-2" />
-            WhatsApp Me
+            <MessageSquare className="h-4 w-4 mr-2" />
+            Send SMS: 876-293-9373
           </>
         )}
       </a>

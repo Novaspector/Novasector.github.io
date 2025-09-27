@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
 import WhatsAppButton from "@/components/whatsapp-button"
+import SMSButton from "@/components/sms-button"
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -21,19 +22,52 @@ export default function ContactPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const formData = new FormData(e.currentTarget)
+      const data = {
+        formType: "contact",
+        firstName: formData.get("firstName"),
+        lastName: formData.get("lastName"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        parish: formData.get("parish"),
+        inquiry: formData.get("inquiry"),
+        message: formData.get("message"),
+        budget: formData.get("budget"),
+      }
 
-    toast({
-      title: "Message sent successfully!",
-      description: "I'll get back to you within 24 hours, usually much sooner!",
-    })
+      const response = await fetch("/api/submit-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
 
-    setIsSubmitting(false)
+      const result = await response.json()
 
-    // Reset form
-    const form = e.target as HTMLFormElement
-    form.reset()
+      if (result.success) {
+        toast({
+          title: "Message sent successfully!",
+          description: "I'll get back to you within 24 hours, usually much sooner!",
+        })
+
+        // Reset form
+        const form = e.target as HTMLFormElement
+        form.reset()
+      } else {
+        throw new Error(result.error || "Failed to submit form")
+      }
+    } catch (error) {
+      console.error("Form submission error:", error)
+      toast({
+        title: "Error sending message",
+        description: "Please try again or contact me directly via phone or WhatsApp.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -172,11 +206,11 @@ export default function ContactPage() {
                       <Phone className="h-6 w-6 text-emerald-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Phone & WhatsApp</h3>
+                      <h3 className="font-semibold text-lg mb-1">Phone, SMS & WhatsApp</h3>
                       <p className="text-slate-600">
                         876-293-9373
                         <br />
-                        <span className="text-sm text-emerald-600">WhatsApp available 8AM-8PM</span>
+                        <span className="text-sm text-emerald-600">Available 8AM-8PM • Call, Text, or WhatsApp</span>
                       </p>
                     </div>
                   </CardContent>
@@ -237,7 +271,7 @@ export default function ContactPage() {
 
               {/* Quick Contact Options */}
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-slate-900">Prefer to Call or Text?</h3>
+                <h3 className="text-xl font-semibold text-slate-900">Choose Your Preferred Contact Method</h3>
                 <div className="grid gap-3">
                   <Button variant="outline" className="justify-start bg-transparent" asChild>
                     <a href="tel:876-293-9373">
@@ -245,6 +279,11 @@ export default function ContactPage() {
                       Call Now: 876-293-9373
                     </a>
                   </Button>
+                  <SMSButton
+                    variant="outline"
+                    className="justify-start bg-transparent hover:bg-blue-50"
+                    message="Hi! I found your website and I'm interested in your IT services. Can we discuss my needs?"
+                  />
                   <WhatsAppButton
                     variant="outline"
                     className="justify-start bg-transparent hover:bg-green-50"
